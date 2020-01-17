@@ -24,8 +24,10 @@
             <div class="columns">
                 <div class="column is-offset-4 is-4">
                     <form method="POST">
+                        {% csrf_token %}
                         <div class="field has-addons">
                             <div class="control is-expanded">
+                            {{ form.name }}
                             </div>
                             <div class="control">
                                 <button type="submit" class="button is-info">
@@ -42,26 +44,27 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
+                {% for weather_city in weather_data %}
                     <div class="box">
                         <article class="media">
                             <div class="media-left">
                                 <figure class="image is-50x50">
-                                    <img src="" alt="Image">
+                                    <img src="http://openweathermap.org/img/w/{{ weather_city.icon }}.png" alt="Image">
                                 </figure>
                             </div>
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title"></span>
+                                        <span class="title">{{ weather_city.city }}</span>
                                         <br>
-                                        <span class="subtitle"></span>
-                                        <br> 
+                                        <span class="subtitle">{{ weather_city.temperature }}</span>
+                                        <br> {{ weather_city.description }}
                                     </p>
                                 </div>
                             </div>
                         </article>
                     </div>
-                  
+                  {% endfor%}
                 </div>
             </div>
         </div>
